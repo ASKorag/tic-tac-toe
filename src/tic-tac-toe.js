@@ -1,10 +1,11 @@
 class TicTacToe {
-  #currentPlayerSymbol = 'x'
   #board = [
     [null, null, null],
     [null, null, null],
     [null, null, null],
   ]
+  #currentPlayerSymbol = 'x'
+  #winner = null
 
   constructor() {}
 
@@ -31,7 +32,9 @@ class TicTacToe {
 
   getWinner() {}
 
-  noMoreTurns() {}
+  noMoreTurns() {
+    return !this.#board.flat().includes(null)
+  }
 
   isDraw() {}
 
