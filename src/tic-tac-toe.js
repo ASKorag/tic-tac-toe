@@ -6,7 +6,9 @@ class TicTacToe {
   ]
   #currentPlayerSymbol = 'x'
   #playerSymbols = ['x', 'o']
+
   #winner = null
+  #isFinished = false
 
   constructor() {}
 
@@ -71,15 +73,15 @@ class TicTacToe {
       this.#board[row][col] = this.#currentPlayerSymbol
       this._togglePlayerSymbol()
       this.#winner = this._checkBoard()
+
+      if (this.#winner !== null || this.noMoreTurns() === true) {
+        this.#isFinished = true
+      }
     }
   }
 
   isFinished() {
-    // return this.#winner !== null ? true : false
-    // if (this.#winner === null) {
-    //   return false
-    // }
-    // return true
+    return this.#isFinished
   }
 
   getWinner() {
