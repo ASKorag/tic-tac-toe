@@ -74,7 +74,13 @@ class TicTacToe {
     }
   }
 
-  isFinished() {}
+  isFinished() {
+    // return this.#winner !== null ? true : false
+    // if (this.#winner === null) {
+    //   return false
+    // }
+    // return true
+  }
 
   getWinner() {
     return this.#winner
@@ -84,7 +90,12 @@ class TicTacToe {
     return !this.#board.flat().includes(null)
   }
 
-  isDraw() {}
+  isDraw() {
+    if (this.noMoreTurns() === true && this.#winner === null) {
+      return true
+    }
+    return false
+  }
 
   getFieldValue(row, col) {
     return this.#board[row][col]
