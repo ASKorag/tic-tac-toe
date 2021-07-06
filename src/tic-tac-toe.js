@@ -1,35 +1,43 @@
 class TicTacToe {
-    constructor() {
+  #currentPlayerSymbol = 'x'
+  #board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ]
 
+  constructor() {}
+
+  _togglePlayerSymbol() {
+    if (this.#currentPlayerSymbol === 'x') {
+      this.#currentPlayerSymbol = 'o'
+    } else {
+      this.#currentPlayerSymbol = 'x'
     }
+  }
 
-    getCurrentPlayerSymbol() {
+  getCurrentPlayerSymbol() {
+    return this.#currentPlayerSymbol
+  }
 
+  nextTurn(row, col) {
+    if (this.#board[row][col] === null) {
+      this.#board[row][col] = this.#currentPlayerSymbol
+      this._togglePlayerSymbol()
     }
+  }
 
-    nextTurn(rowIndex, columnIndex) {
+  isFinished() {}
 
-    }
+  getWinner() {}
 
-    isFinished() {
+  noMoreTurns() {}
 
-    }
+  isDraw() {}
 
-    getWinner() {
-
-    }
-
-    noMoreTurns() {
-
-    }
-
-    isDraw() {
-
-    }
-
-    getFieldValue(rowIndex, colIndex) {
-
-    }
+  getFieldValue(row, col) {
+    return this.#board[row][col]
+  }
 }
 
-module.exports = TicTacToe;
+module.exports = TicTacToe
