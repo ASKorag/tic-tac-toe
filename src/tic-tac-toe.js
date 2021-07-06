@@ -1,31 +1,29 @@
 class TicTacToe {
+  #symbols = ['x', 'o']
+
   #board = [
     [null, null, null],
     [null, null, null],
     [null, null, null],
   ]
-  #currentPlayerSymbol = 'x'
-  #playerSymbols = ['x', 'o']
+  #currentSymbol = 'x'
 
   #winner = null
   #isFinished = false
 
   constructor() {}
 
-  _togglePlayerSymbol() {
-    if (this.#currentPlayerSymbol === 'x') {
-      this.#currentPlayerSymbol = 'o'
-    } else {
-      this.#currentPlayerSymbol = 'x'
-    }
+  _toggleSymbol() {
+    const currentSymbolIndex = this.#symbols.indexOf(this.#currentSymbol)
+    this.#currentSymbol = this.#symbols[(currentSymbolIndex + 1) % 2]
   }
 
-  _checkBoard() {
+  _checkWinner() {
     let res = null
 
     //-------Check Rows--------
     this.#board.forEach(row => {
-      this.#playerSymbols.forEach(symbol => {
+      this.#symbols.forEach(symbol => {
         if (row.every(value => value === symbol)) {
           res = symbol
         }
@@ -40,7 +38,7 @@ class TicTacToe {
     const columns = [col1, col2, col3]
 
     columns.forEach(col => {
-      this.#playerSymbols.forEach(symbol => {
+      this.#symbols.forEach(symbol => {
         if (col.every(value => value === symbol)) {
           res = symbol
         }
@@ -54,7 +52,7 @@ class TicTacToe {
     const diagonals = [diag1, diag2]
 
     diagonals.forEach(diag => {
-      this.#playerSymbols.forEach(symbol => {
+      this.#symbols.forEach(symbol => {
         if (diag.every(value => value === symbol)) {
           res = symbol
         }
@@ -65,14 +63,14 @@ class TicTacToe {
   }
 
   getCurrentPlayerSymbol() {
-    return this.#currentPlayerSymbol
+    return this.#currentSymbol
   }
 
   nextTurn(row, col) {
     if (this.#board[row][col] === null) {
-      this.#board[row][col] = this.#currentPlayerSymbol
-      this._togglePlayerSymbol()
-      this.#winner = this._checkBoard()
+      this.#board[row][col] = this.#currentSymbol
+      this._toggleSymbol()
+      this.#winner = this._checkWinner()
 
       if (this.#winner !== null || this.noMoreTurns() === true) {
         this.#isFinished = true
@@ -93,10 +91,7 @@ class TicTacToe {
   }
 
   isDraw() {
-    if (this.noMoreTurns() === true && this.#winner === null) {
-      return true
-    }
-    return false
+    return this.noMoreTurns() === true && this.#winner === null
   }
 
   getFieldValue(row, col) {
